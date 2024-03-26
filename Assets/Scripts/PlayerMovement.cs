@@ -1,49 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController controller;
-    public float baseSpeed = 12f;
-    public float jumpHeight = 3f;
-    public float sprintSpeed = 5f;
+    [SerializeField] private Rigidbody _rb;
 
-    float speedBoost = 1f;
-    Vector3 velocity;
-
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _speed;
     [SerializeField] private Animator animator;
-    
+
+    private int _numberOfCollidingItems = 0;
+
+    public static PlayerMovement Instance;
+
+    private void Awake()
+    {
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
+    }
+
     void Update()
     {
-        if (controller.isGrounded && velocity.y < 0)
+        float horizontalMovement = Input.GetAxis("Horizontal");
+
+        Vector3 CurrentSpeed = _rb.velocity;
+        Vector3 tempSpeed = CurrentSpeed;
+
+        // Rotation
+        if (Mathf.Abs(horizontalMovement) > 0.3f)
         {
-            velocity.y = -2f;
+            float running = Input.GetKey(KeyCode.LeftShift) && horizontalMovement > 0 ? 2f : 1f;
+            tempSpeed = transform.forward * horizontalMovement * running * _speed;
         }
 
-        float z = Input.GetAxis("Horizontal");
+        tempSpeed.y = CurrentSpeed.y;
+        _rb.velocity = tempSpeed;
 
-        bool running = Input.GetButton("Fire3");
-        if (running && z > 0) 
-            speedBoost = sprintSpeed;
-        else
-            speedBoost = 1f;
+        animator.SetFloat("Speed", _rb.velocity.x < 0 ? 0 : .33f + (_rb.velocity.x / 6));
 
-        Vector3 move = transform.forward * z;
+        if (Input.GetKeyDown(KeyCode.Space) && _numberOfCollidingItems > 0) _rb.AddForce(new Vector3(0, _jumpForce, 0));
 
-        // Blend tree spécifique, se référer directement onglet animations
-        float moveZ = move.z < 0 ? 0 : .33f + (move.z / 3) + (running ? .33f : 0);
-        animator.SetFloat("Speed", moveZ);
+        if (_rb.velocity.y < -1) _rb.AddForce(Physics.gravity * Time.deltaTime * 50);
+    }
 
-        controller.Move(move * (baseSpeed + speedBoost) * Time.deltaTime);
+    private void OnTriggerEnter(Collider other)
+    {
+        _numberOfCollidingItems++;
+    }
 
-        if (Input.GetButtonDown("Jump") && controller.isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
-        }
-
-        velocity.y += Physics.gravity.y * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
+    private void OnTriggerExit(Collider other)
+    {
+        _numberOfCollidingItems--;
     }
 }
