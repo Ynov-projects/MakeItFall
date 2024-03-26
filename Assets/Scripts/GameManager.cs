@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public ScriptablePotion[] potions;
 
-    // Update is called once per frame
-    void Update()
+    public static GameManager Instance;
+
+    private void Awake()
     {
-        
+        if(Instance != null) Destroy(Instance);
+        Instance = this;
     }
 }
