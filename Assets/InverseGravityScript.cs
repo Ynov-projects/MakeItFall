@@ -17,8 +17,7 @@ public class InverseGravityScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            
-            Physics.gravity = new Vector3(0, -5.0F, 0);
+            Physics.gravity *= _gravityForceY;
         }
     }
 }
