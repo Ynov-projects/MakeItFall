@@ -40,6 +40,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && _numberOfCollidingItems > 0) _rb.AddForce(new Vector3(0, _jumpForce, 0));
 
         if (_rb.velocity.y < -1) _rb.AddForce(Physics.gravity * Time.deltaTime * 50);
+
+        // Gestion des potions visuelles et physiques
+        if (Mathf.Abs(Input.mouseScrollDelta.y) >= .3f) ChangePotions(Input.mouseScrollDelta.y > .3f);
+    }
+
+    private void ChangePotions(bool sens)
+    {
+        UIManager.Instance.ChangePotion(sens);
     }
 
     private void OnTriggerEnter(Collider other)
