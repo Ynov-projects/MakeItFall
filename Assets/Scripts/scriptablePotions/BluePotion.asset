@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a964fb955821494e9ed274fd6abeb04, type: 3}
-  m_Name: RedPotion
+  m_Name: BluePotion
   m_EditorClassIdentifier: 
-  Id: 2
-  Name: Red Potion
-  Description: Change gravity for the player.
-  Effect: PLAY
-  Icon: {fileID: 21300000, guid: 5589b6b94ff4af74f8f0b6411320234f, type: 3}
-  Prefab: {fileID: 3568398053166638294, guid: 12f24068093e4b44dad5511e5091689a, type: 3}
+  Id: 1
+  Name: Blue potion
+  Description: Change gravity for everything in the dungeon.
+  Effect: EVER
+  Icon: {fileID: 21300000, guid: 9d261f5b104b1a34f944f47667c98ebc, type: 3}
+  Prefab: {fileID: 4742420181833836513, guid: c35caf1b8939f8344aac8a9c1f7bc22e, type: 3}
