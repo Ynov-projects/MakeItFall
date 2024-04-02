@@ -10,6 +10,10 @@ public class UIManager : MonoBehaviour
 
     private int selectedPotion;
 
+    private float timer;
+    [SerializeField] private float timePnlDisappearance;
+    [SerializeField] private Animator animator;
+
     public static UIManager Instance;
 
     private void Awake()
@@ -21,6 +25,20 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         DisplayPotions();
+    }
+
+    private void Update()
+    {
+        if(timer > 0f)
+        {
+            animator.SetBool("opening", true);
+            timer += Time.deltaTime;
+        }
+        if (timer > timePnlDisappearance)
+        {
+            animator.SetBool("opening", false);
+            timer = 0f;
+        }
     }
 
     private void DisplayPotions()
@@ -36,6 +54,7 @@ public class UIManager : MonoBehaviour
 
     public void ChangePotion(bool sens)
     {
+        timer += Time.deltaTime;
         selectedPotion += sens ? 1 : -1;
         if (selectedPotion < 0) selectedPotion = 2;
         selectedPotion = selectedPotion % potionScriptables.Length;
