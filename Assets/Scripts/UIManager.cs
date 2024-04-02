@@ -3,12 +3,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private ScriptablePotion[] potionScriptables;
     [SerializeField] private Image[] potionImages;
 
     [SerializeField] private Text potionDisplay;
-
-    private int selectedPotion;
 
     private float timer;
     [SerializeField] private float timePnlDisappearance;
@@ -43,6 +40,9 @@ public class UIManager : MonoBehaviour
 
     private void DisplayPotions()
     {
+        int selectedPotion = GameManager.Instance.selectedPotion;
+
+        ScriptablePotion[] potionScriptables = GameManager.Instance.potions;
         int firstPotion = selectedPotion == 0 ? potionScriptables.Length - 1 : selectedPotion - 1;
         
         potionImages[0].sprite = potionScriptables[firstPotion].Icon;
@@ -55,9 +55,13 @@ public class UIManager : MonoBehaviour
     public void ChangePotion(bool sens)
     {
         timer += Time.deltaTime;
-        selectedPotion += sens ? 1 : -1;
-        if (selectedPotion < 0) selectedPotion = 2;
-        selectedPotion = selectedPotion % potionScriptables.Length;
+
+        int _selectedPotion = GameManager.Instance.selectedPotion;
+        _selectedPotion += sens ? 1 : -1; // Suivante ou précédente
+        if (_selectedPotion < 0) _selectedPotion = 2; // Si valeur inférieure à 0, on remet à la dernière valeur
+
+        GameManager.Instance.ChangePotion(_selectedPotion);
+
         DisplayPotions();
     }
 }
