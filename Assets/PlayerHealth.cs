@@ -27,13 +27,6 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
-        TakeDamage(0);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-            TakeDamage(1);
     }
 
     public void TakeDamage(int amount)
@@ -45,5 +38,15 @@ public class PlayerHealth : MonoBehaviour
         CurrentScale.x = (float)health / (float)maxHealth;
         fillSize.localScale = CurrentScale;
         fill.color = gradient.Evaluate(CurrentScale.x);
+
+        PlayerScript.Instance.GetAnimator().SetTrigger("TakingDamage");
+        PlayerMovement.Instance.enabled = false;
+        StartCoroutine(AbleToMove());
+    }
+
+    private IEnumerator AbleToMove()
+    {
+        yield return new WaitForSeconds(1.2f);
+        PlayerMovement.Instance.enabled = true;
     }
 }
