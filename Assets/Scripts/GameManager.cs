@@ -15,6 +15,20 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        foreach(var potion in potions)
+            potion.Quantity = 0;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K)) potions[0].Quantity++;
+        if (Input.GetKeyDown(KeyCode.L)) potions[1].Quantity++;
+        if (Input.GetKeyDown(KeyCode.M)) potions[2].Quantity++;
+        if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.M)) UIManager.Instance.DisplayPotions();
+    }
+
     public void ChangePotion(int _selectedPotion)
     {
         selectedPotion = _selectedPotion % potions.Length;
