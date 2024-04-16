@@ -15,16 +15,6 @@ public class Ennemi_IA : MonoBehaviour
         _startPosition = transform.position;
     }
 
-    // Update is called once per frame
-    /*void Update()
-    {
-        transform.rotation = Quaternion.Slerp(transform.rotation, 
-                                Quaternion.LookRotation(PlayerTransform.position - transform.position),
-                                _RotationSpeed * Time.deltaTime);
-
-        transform.position += transform.forward * _MoveSpeed * Time.deltaTime;
-    }*/
-
     private void OnTriggerStay(Collider other)
     {
         if (PlayerTransform && other.CompareTag("Player"))

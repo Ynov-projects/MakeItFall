@@ -195,10 +195,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1732757520862573873, guid: 176a27737f0cce449940bf0389110fbc,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 4918731131676699444, guid: 176a27737f0cce449940bf0389110fbc,
         type: 3}
       propertyPath: m_Name
       value: Skeleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580166717156965873, guid: 176a27737f0cce449940bf0389110fbc,
+        type: 3}
+      propertyPath: _RotationSpeed
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8182420288115623942, guid: 176a27737f0cce449940bf0389110fbc,
         type: 3}
@@ -549,7 +559,7 @@ PrefabInstance:
     - target: {fileID: 6547954029183655449, guid: d2058a1025ce65a4f922b57984461c43,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8523335012186229929, guid: d2058a1025ce65a4f922b57984461c43,
         type: 3}
