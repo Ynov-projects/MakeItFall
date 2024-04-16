@@ -23,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Image fill;
     [SerializeField] private RectTransform fillSize;
     [SerializeField] private Gradient gradient;
+    [SerializeField] private GameObject dizzy;
 
     private void Start()
     {
@@ -39,8 +40,14 @@ public class PlayerHealth : MonoBehaviour
         fillSize.localScale = CurrentScale;
         fill.color = gradient.Evaluate(CurrentScale.x);
 
+        UnableToMove();
+    }
+
+    private void UnableToMove()
+    {
         PlayerScript.Instance.GetAnimator().SetTrigger("TakingDamage");
         PlayerMovement.Instance.enabled = false;
+        dizzy.SetActive(true);
         StartCoroutine(AbleToMove());
     }
 
@@ -48,5 +55,6 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(1.2f);
         PlayerMovement.Instance.enabled = true;
+        dizzy.SetActive(false);
     }
 }
