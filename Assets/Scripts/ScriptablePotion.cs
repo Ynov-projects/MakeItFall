@@ -9,4 +9,5 @@ public class ScriptablePotion : ScriptableObject
     public string Effect;
     public Sprite Icon;
     public GameObject Prefab;
+    public int Quantity;
 }

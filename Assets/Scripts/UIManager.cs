@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Image[] potionImages;
+    [SerializeField] private Text[] potionTexts;
 
     [SerializeField] private Text potionDisplay;
 
@@ -38,16 +40,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void DisplayPotions()
+    public void DisplayPotions()
     {
         int selectedPotion = GameManager.Instance.selectedPotion;
 
         ScriptablePotion[] potionScriptables = GameManager.Instance.potions;
         int firstPotion = selectedPotion == 0 ? potionScriptables.Length - 1 : selectedPotion - 1;
         
-        potionImages[0].sprite = potionScriptables[firstPotion].Icon;
-        potionImages[1].sprite = potionScriptables[(firstPotion + 1) % potionScriptables.Length].Icon;
-        potionImages[2].sprite = potionScriptables[(firstPotion + 2) % potionScriptables.Length].Icon;
+        for (int i = 0; i < 3; i++)
+        {
+            ScriptablePotion potion = potionScriptables[(firstPotion + i) % potionScriptables.Length];
+            potionImages[i].sprite = potion.Icon;
+            potionImages[i].color = potion.Quantity == 0 ? Color.grey : Color.white;
+            potionTexts[i].text = potion.Quantity < 10 ? potion.Quantity.ToString() : "9+";
+        }
 
         potionDisplay.text = potionScriptables[selectedPotion].Name;
     }
