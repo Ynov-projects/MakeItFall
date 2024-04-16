@@ -1,63 +1,108 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody _rb;
+    /*public CharacterController controller;
+    public float baseSpeed = 12f;
+    public float jumpHeight = 3f;
+    public float sprintSpeed = 5f;
 
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float _speed;
+    float speedBoost = 1f;
+    Vector3 velocity;
 
-    private int _numberOfCollidingItems = 0;
-
-    #region "singleton"
-    public static PlayerMovement Instance;
-
-    private void Awake()
+    [SerializeField] private Animator animator;
+    
+    void Update()
     {
-        if (Instance != null) Destroy(gameObject);
-        Instance = this;
-    }
-    #endregion
+        if (controller.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
+        float z = Input.GetAxis("Horizontal");
+
+        bool running = Input.GetButton("Fire3");
+        if (running && z > 0) 
+            speedBoost = sprintSpeed;
+        else
+            speedBoost = 1f;
+
+        Vector3 move = transform.forward * z;
+
+        // Blend tree spécifique, se référer directement onglet animations
+        float moveZ = move.z < 0 ? 0 : .33f + (move.z / 3) + (running ? .33f : 0);
+        animator.SetFloat("Speed", moveZ);
+
+        controller.Move(move * (baseSpeed + speedBoost) * Time.deltaTime);
+
+        if (Input.GetButtonDown("Jump") && controller.isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+        }
+
+        velocity.y += Physics.gravity.y * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
+    }*/
+
+    [SerializeField]
+    private float _movementSpeed;
+
+    /*[SerializeField]
+    private float _jumpForce;*/
+
+    [SerializeField]
+    private float _acceleration;
+
+    //private int _nbrColliderUnder = 0;
+
+    [SerializeField]
+    private Rigidbody _rb;
+
+    [SerializeField]
+    private Animator animator;
 
     void Update()
     {
-        float horizontalMovement = Input.GetAxis("Horizontal");
-
+        float speedDelta = _movementSpeed * Time.deltaTime;
         Vector3 CurrentSpeed = _rb.velocity;
+
         Vector3 tempSpeed = CurrentSpeed;
 
-        // Rotation
-        if (Mathf.Abs(horizontalMovement) > 0.3f)
+        if (Input.GetKey(KeyCode.D))
         {
-            float running = Input.GetKey(KeyCode.LeftShift) && horizontalMovement > 0 ? 2f : 1f;
-            tempSpeed = transform.forward * horizontalMovement * running * _speed;
+            tempSpeed = transform.forward * speedDelta;
         }
+        if (Input.GetKey(KeyCode.A))
+            tempSpeed = -transform.forward * speedDelta;
 
         tempSpeed.y = CurrentSpeed.y;
-        _rb.velocity = tempSpeed;
 
-        PlayerScript.Instance.GetAnimator().SetFloat("Speed", _rb.velocity.x < 0 ? 0 : .33f + (_rb.velocity.x / 6));
+        _rb.velocity = Vector3.Lerp(_rb.velocity, tempSpeed, Time.deltaTime * _acceleration);
 
-        if (Input.GetKeyDown(KeyCode.Space) && _numberOfCollidingItems > 0) _rb.AddForce(new Vector3(0, _jumpForce, 0));
+        /*if (Input.GetKeyDown(KeyCode.Space) && _nbrColliderUnder > 0)
+        {
+            _rb.AddForce(new Vector3(0, _jumpForce, 0));
+        }*/
 
-        if (_rb.velocity.y < -1) _rb.AddForce(Physics.gravity * Time.deltaTime * 50);
+        if (_rb.velocity.y < -1)
+            _rb.AddForce(Physics.gravity * Time.deltaTime * 100);
 
-        // Gestion des potions visuelles et physiques
-        if (Mathf.Abs(Input.mouseScrollDelta.y) >= .3f) ChangePotions(Input.mouseScrollDelta.y > .3f);
+        animator.SetFloat("Speed", _rb.velocity.magnitude);
+
+        /*if (Input.GetMouseButtonDown(0))
+            _animator.SetTrigger("Active");*/
     }
 
-    private void ChangePotions(bool sens)
+    /*private void OnTriggerEnter(Collider other)
     {
-        UIManager.Instance.ChangePotion(sens);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        _numberOfCollidingItems++;
+        _nbrColliderUnder++;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _numberOfCollidingItems--;
-    }
+        _nbrColliderUnder--;
+    }*/
 }
