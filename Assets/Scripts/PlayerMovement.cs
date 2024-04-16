@@ -6,10 +6,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _speed;
-    [SerializeField] private Animator animator;
 
     private int _numberOfCollidingItems = 0;
 
+    #region "singleton"
     public static PlayerMovement Instance;
 
     private void Awake()
@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
         if (Instance != null) Destroy(gameObject);
         Instance = this;
     }
+    #endregion
 
     void Update()
     {
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         tempSpeed.y = CurrentSpeed.y;
         _rb.velocity = tempSpeed;
 
-        animator.SetFloat("Speed", _rb.velocity.x < 0 ? 0 : .33f + (_rb.velocity.x / 6));
+        PlayerScript.Instance.GetAnimator().SetFloat("Speed", _rb.velocity.x < 0 ? 0 : .33f + (_rb.velocity.x / 6));
 
         if (Input.GetKeyDown(KeyCode.Space) && _numberOfCollidingItems > 0) _rb.AddForce(new Vector3(0, _jumpForce, 0));
 
