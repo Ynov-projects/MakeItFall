@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text pnlTitle;
     [SerializeField] private Text pnlDesc;
 
+    [SerializeField] private float zForce;
+
     public int selectedPotion { get; private set; }
 
     public static GameManager Instance;
@@ -61,8 +63,8 @@ public class GameManager : MonoBehaviour
         if (potion.GetComponent<PotionScript>().potion.Quantity > 0)
         {
             potion.SetActive(true);
-            potion.transform.localPosition = new Vector3(0, -1, 0);
-            potion.GetComponent<Rigidbody>().AddForce(new Vector3(-300, 0, 0));
+            potion.transform.localPosition = new Vector3(0, 1.5f, .7f);
+            potion.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, zForce));
         }
     }
 
