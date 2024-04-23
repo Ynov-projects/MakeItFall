@@ -207,6 +207,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580166717156965873, guid: 176a27737f0cce449940bf0389110fbc,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580166717156965873, guid: 176a27737f0cce449940bf0389110fbc,
+        type: 3}
       propertyPath: _RotationSpeed
       value: 20
       objectReference: {fileID: 0}
@@ -2771,8 +2776,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36b9e0d96e1ae34bb3f99811924a27a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _upForce: 100
   _rb: {fileID: 2060224627}
-  _gravityForce: {x: 0, y: 100, z: 0}
+  _spellDuration: 1
 --- !u!1 &2084379705
 GameObject:
   m_ObjectHideFlags: 0
