@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -38,24 +39,27 @@ public class UIManager : MonoBehaviour
             animator.SetBool("opening", false);
             timer = 0f;
         }
+
+        // Gestion des potions visuelles et physiques
+        if (Mathf.Abs(Input.mouseScrollDelta.y) >= .3f) ChangePotion(Input.mouseScrollDelta.y > .3f);
     }
 
     public void DisplayPotions()
     {
         int selectedPotion = GameManager.Instance.selectedPotion;
 
-        ScriptablePotion[] potionScriptables = GameManager.Instance.potions;
-        int firstPotion = selectedPotion == 0 ? potionScriptables.Length - 1 : selectedPotion - 1;
+        GameObject[] prefabPotion = GameManager.Instance.prefabPotions;
+        int firstPotion = selectedPotion == 0 ? prefabPotion.Length - 1 : selectedPotion - 1;
         
         for (int i = 0; i < 3; i++)
         {
-            ScriptablePotion potion = potionScriptables[(firstPotion + i) % potionScriptables.Length];
+            ScriptablePotion potion = prefabPotion[(firstPotion + i) % prefabPotion.Length].GetComponent<PotionScript>().potion;
             potionImages[i].sprite = potion.Icon;
             potionImages[i].color = potion.Quantity == 0 ? Color.grey : Color.white;
             potionTexts[i].text = potion.Quantity < 10 ? potion.Quantity.ToString() : "9+";
         }
 
-        potionDisplay.text = potionScriptables[selectedPotion].Name;
+        potionDisplay.text = prefabPotion[selectedPotion].GetComponent<PotionScript>().potion.Name;
     }
 
     public void ChangePotion(bool sens)
