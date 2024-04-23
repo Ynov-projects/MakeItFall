@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -28,8 +26,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 CurrentSpeed = _rb.velocity;
         Vector3 tempSpeed = CurrentSpeed;
 
+        float running = Input.GetKey(KeyCode.LeftShift) ? 1.75f : 1f;
         if (Input.GetKey(KeyCode.D))
-            tempSpeed = transform.forward * speedDelta;
+            tempSpeed = transform.forward * speedDelta * running;
         if (Input.GetKey(KeyCode.A))
             tempSpeed = -transform.forward * speedDelta;
 
@@ -42,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
         if (_rb.velocity.y < -1)
             _rb.AddForce(Physics.gravity * Time.deltaTime * 100);
 
-        PlayerScript.Instance.GetAnimator().SetFloat("Speed", _rb.velocity.magnitude);
-
+        float moveZ = _rb.velocity.x < 0 ? 0 : .33f + (_rb.velocity.magnitude / 15) + (running > 1f ? .33f : 0);
+        PlayerScript.Instance.GetAnimator().SetFloat("Speed", moveZ);
     }
 
     private void OnTriggerEnter(Collider other)
