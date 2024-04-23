@@ -1,9 +1,14 @@
-using NUnit.Framework;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject[] prefabPotions;
+
+    [SerializeField] private GameObject pnlPotion;
+    [SerializeField] private Text pnlTitle;
+    [SerializeField] private Text pnlDesc;
 
     public int selectedPotion { get; private set; }
 
@@ -29,6 +34,25 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K)) AddPotion(0);
         if (Input.GetKeyDown(KeyCode.L)) AddPotion(1);
         if (Input.GetKeyDown(KeyCode.M)) AddPotion(2);
+    }
+
+    public void AppearInfo(int id, string title, string desc)
+    {
+        if (!prefabPotions[id].GetComponent<PotionScript>().alreadyCollected)
+        {
+            // Code pour mettre en haut à droite de l'écran
+            pnlPotion.SetActive(true);
+            pnlTitle.text = title;
+            pnlDesc.text = desc;
+            StartCoroutine(StopAnimation());
+            prefabPotions[id].GetComponent<PotionScript>().alreadyCollected = true;
+        }
+    }
+
+    private IEnumerator StopAnimation()
+    {
+        yield return new WaitForSeconds(2f);
+        pnlPotion.SetActive(false);
     }
 
     public void ThrowPotion()
