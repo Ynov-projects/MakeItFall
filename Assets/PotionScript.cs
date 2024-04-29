@@ -11,14 +11,14 @@ public class PotionScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (throwable)
+        if (throwable && collision.transform.tag != "Player")
         {
             potion.Quantity--;
             UIManager.Instance.DisplayPotions();
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             gameObject.SetActive(false);
         }
-        else if (collision.transform.tag == "Player")
+        else if (!throwable && collision.transform.tag == "Player")
         {
             potion.Quantity++;
             GameManager.Instance.AppearInfo(potion.Id, potion.Name, potion.Description);
