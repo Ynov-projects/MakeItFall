@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0
   Name: Blue potion
-  Description: Change gravity for everything in the dungeon.
-  Effect: EVER
+  Description: Change gravity for one entity
+  Effect: Unique
   Icon: {fileID: 21300000, guid: 9d261f5b104b1a34f944f47667c98ebc, type: 3}
   Prefab: {fileID: 4742420181833836513, guid: c35caf1b8939f8344aac8a9c1f7bc22e, type: 3}
-  Quantity: 0
+  Quantity: 6
