@@ -428,6 +428,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2513879443146119260, guid: 9dece90add339db4e9f6fbd99223c54e,
+        type: 3}
+      propertyPath: throwable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2513879443146119260, guid: 9dece90add339db4e9f6fbd99223c54e,
+        type: 3}
+      propertyPath: alreadyCollected
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 392489427087728442, guid: 9dece90add339db4e9f6fbd99223c54e,
         type: 3}
       propertyPath: m_Name
@@ -446,7 +456,7 @@ PrefabInstance:
     - target: {fileID: 1025052294285706624, guid: 9dece90add339db4e9f6fbd99223c54e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.6484356
+      value: -4.28
       objectReference: {fileID: 0}
     - target: {fileID: 1025052294285706624, guid: 9dece90add339db4e9f6fbd99223c54e,
         type: 3}
@@ -1293,7 +1303,7 @@ MonoBehaviour:
   pnlPotion: {fileID: 943410815}
   pnlTitle: {fileID: 1687551669}
   pnlDesc: {fileID: 327166598}
-  zForce: 500
+  zForce: 0
 --- !u!4 &821982145
 Transform:
   m_ObjectHideFlags: 0
@@ -1946,6 +1956,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box_01
       objectReference: {fileID: 0}
+    - target: {fileID: 573573865698385911, guid: e0b2792fd3ecf274fa1b9172d6962562,
+        type: 3}
+      propertyPath: m_TagString
+      value: Reversable
+      objectReference: {fileID: 0}
     - target: {fileID: 918293182789584205, guid: e0b2792fd3ecf274fa1b9172d6962562,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2027,9 +2042,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36b9e0d96e1ae34bb3f99811924a27a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upForce: 0
+  _upForce: 100
   _rb: {fileID: 1344412829}
-  _spellDuration: 0
+  _spellDuration: 5
 --- !u!54 &1344412829
 Rigidbody:
   m_ObjectHideFlags: 0

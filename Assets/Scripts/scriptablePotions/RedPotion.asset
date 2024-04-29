@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 2
   Name: Red potion
-  Description: Change gravity for the player.
+  Description: Change gravity for everything in the dungeon.
   Effect: PLAY
   Icon: {fileID: 21300000, guid: 5589b6b94ff4af74f8f0b6411320234f, type: 3}
   Prefab: {fileID: 3568398053166638294, guid: 12f24068093e4b44dad5511e5091689a, type: 3}
+  Quantity: 1

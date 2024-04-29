@@ -14,15 +14,6 @@ public class ReverseOneGravity : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            StartCoroutine(StartSpell());
-        }
-    }
-
     void ReverseGravity()
     {
         if (_rb.useGravity == true)
@@ -34,10 +25,15 @@ public class ReverseOneGravity : MonoBehaviour
             _rb.useGravity = true;
     }
 
-    IEnumerator StartSpell()
+    public IEnumerator StartSpell()
     {
         ReverseGravity();
         yield return new WaitForSeconds(_spellDuration);
         ReverseGravity();
+    }
+
+    public void StartStartSpell()
+    {
+        StartCoroutine(StartSpell());
     }
 }
