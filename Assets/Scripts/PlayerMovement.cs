@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _movementSpeed;
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float _acceleration;
-
-    private int _nbrColliderUnder = 0;
-
     [SerializeField] private Rigidbody _rb;
 
-    #region "singleton"
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _speed;
+    [SerializeField] private Animator animator;
+
+    private int _numberOfCollidingItems = 0;
+
     public static PlayerMovement Instance;
 
     private void Awake()
@@ -18,40 +17,39 @@ public class PlayerMovement : MonoBehaviour
         if (Instance != null) Destroy(gameObject);
         Instance = this;
     }
-    #endregion
 
     void Update()
     {
-        float speedDelta = _movementSpeed * Time.deltaTime;
+        float horizontalMovement = Input.GetAxis("Horizontal");
+
         Vector3 CurrentSpeed = _rb.velocity;
         Vector3 tempSpeed = CurrentSpeed;
 
-        float running = Input.GetKey(KeyCode.LeftShift) ? 1.75f : 1f;
-        if (Input.GetKey(KeyCode.D))
-            tempSpeed = transform.forward * speedDelta * running;
-        if (Input.GetKey(KeyCode.A))
-            tempSpeed = -transform.forward * speedDelta;
+        // Avancer
+        float running = Input.GetKey(KeyCode.LeftShift) && horizontalMovement > .3f ? 1.75f : 1f; // Si on court vers l'avant
+        if (Mathf.Abs(horizontalMovement) > 0.3f)
+        {
+            tempSpeed = transform.forward * horizontalMovement * _speed * running;
+        }
 
         tempSpeed.y = CurrentSpeed.y;
+        _rb.velocity = tempSpeed;
 
-        _rb.velocity = Vector3.Lerp(_rb.velocity, tempSpeed, Time.deltaTime * _acceleration);
+        // 0 => Reculer, .33 => repos, .66 => marcher, 1 => Courir
+        animator.SetFloat("Speed", _rb.velocity.x < 0 ? 0 : .33f + (_rb.velocity.magnitude / 15) + (running > 1f ? .33f : 0));
 
-        if (Input.GetKeyDown(KeyCode.Space) && _nbrColliderUnder > 0) _rb.AddForce(new Vector3(0, _jumpForce, 0));
+        if (Input.GetKeyDown(KeyCode.Space) && _numberOfCollidingItems > 0) _rb.AddForce(new Vector3(0, _jumpForce, 0));
 
-        if (_rb.velocity.y < -1)
-            _rb.AddForce(Physics.gravity * Time.deltaTime * 100);
-
-        float moveZ = _rb.velocity.x < 0 ? 0 : .33f + (_rb.velocity.magnitude / 15) + (running > 1f ? .33f : 0);
-        PlayerScript.Instance.GetAnimator().SetFloat("Speed", moveZ);
+        if (_rb.velocity.y < -1) _rb.AddForce(Physics.gravity * Time.deltaTime * 50);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        _nbrColliderUnder++;
+        _numberOfCollidingItems++;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _nbrColliderUnder--;
+        _numberOfCollidingItems--;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,13 @@ public class PotionScript : MonoBehaviour
 
     public bool alreadyCollected;
 
+    [SerializeField] private ParticleSystem ps;
+
     [SerializeField] private bool throwable;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (throwable && collision.transform.tag != "Player")
+        if (throwable && collision.transform.tag != "Player" && potion.Quantity > 0)
         {
             switch (potion.Effect)
             {
@@ -30,7 +33,7 @@ public class PotionScript : MonoBehaviour
             potion.Quantity--;
             UIManager.Instance.DisplayPotions();
             GetComponent<Rigidbody>().velocity = Vector3.zero;
-            gameObject.SetActive(false);
+            StartCoroutine(PlayingParticleSystem());
         }
         else if (!throwable && collision.transform.tag == "Player")
         {
@@ -38,6 +41,13 @@ public class PotionScript : MonoBehaviour
             GameManager.Instance.AppearInfo(potion.Id, potion.Name, potion.Description);
             gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator PlayingParticleSystem()
+    {
+        ps.Play();
+        yield return new WaitForSeconds(.15f);
+        gameObject.SetActive(false);
     }
 
     private void UniqueEffect()
