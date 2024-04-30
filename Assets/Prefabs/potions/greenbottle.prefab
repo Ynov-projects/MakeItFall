@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potion: {fileID: 11400000, guid: e0e44e430a6e0c341880dc57f0df0c7a, type: 2}
+  alreadyCollected: 0
   throwable: 0
-  miniInfo: {fileID: 0}
 --- !u!54 &5709003829254196016
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,5 +149,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
