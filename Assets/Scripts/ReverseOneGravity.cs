@@ -14,12 +14,20 @@ public class ReverseOneGravity : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        if (_rb.useGravity == false)
+        {
+            _rb.AddForce(Vector3.up * _upForce);
+        }
+    }
+
     void ReverseGravity()
     {
         if (_rb.useGravity == true)
         {
             _rb.useGravity = false;
-            _rb.AddForce(Vector3.up * _upForce);
+            //_rb.AddForce(Vector3.up * _upForce);
         }
         else if (_rb.useGravity == false)
             _rb.useGravity = true;

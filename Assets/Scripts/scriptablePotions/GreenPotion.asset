@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 1
   Name: Green potion
   Description: Change gravity for all entity in the splash area.
-  Effect: Global
+  Effect: Zone
   Icon: {fileID: 21300000, guid: 05b816754f56fe146b1fbbb181b90e4c, type: 3}
   Prefab: {fileID: 392489427087728442, guid: 9dece90add339db4e9f6fbd99223c54e, type: 3}
   Quantity: -1

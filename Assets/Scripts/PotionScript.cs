@@ -21,6 +21,9 @@ public class PotionScript : MonoBehaviour
                 case "Unique":
                     UniqueEffect();
                     break;
+                case "Zone":
+                    ZoneEffect();
+                    break;
                 case "Global":
                     GlobalEffect();
                     break;
@@ -57,14 +60,27 @@ public class PotionScript : MonoBehaviour
         }
     }
 
-    private void GlobalEffect()
+    private void ZoneEffect()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 5f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 10f);
         foreach (Collider nearbyObject in colliders)
         {
             if (nearbyObject.CompareTag("Reversable"))
             {
                 nearbyObject.GetComponent<ReverseOneGravity>().StartStartSpell();
+            }
+        }
+    }
+
+    private void GlobalEffect()
+    {
+        /*GetComponent<InverseGravityScript>().ReverseAllGravity();*/
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 10f);
+        foreach (Collider nearbyObject in colliders)
+        {
+            if (nearbyObject.CompareTag("Reversable"))
+            {
+                nearbyObject.GetComponent<InverseGravityScript>().ReverseAllGravity();
             }
         }
     }
