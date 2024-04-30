@@ -62,7 +62,7 @@ public class PotionScript : MonoBehaviour
 
     private void ZoneEffect()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 10f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5f);
         foreach (Collider nearbyObject in colliders)
         {
             if (nearbyObject.CompareTag("Reversable"))
@@ -74,14 +74,6 @@ public class PotionScript : MonoBehaviour
 
     private void GlobalEffect()
     {
-        /*GetComponent<InverseGravityScript>().ReverseAllGravity();*/
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 10f);
-        foreach (Collider nearbyObject in colliders)
-        {
-            if (nearbyObject.CompareTag("Reversable"))
-            {
-                nearbyObject.GetComponent<InverseGravityScript>().ReverseAllGravity();
-            }
-        }
+        GameManager.Instance.StartSpell();
     }
 }

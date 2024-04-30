@@ -18,14 +18,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance != null) Destroy(Instance);
+        if (Instance != null) Destroy(Instance);
         Instance = this;
     }
 
     private void Start()
     {
         selectedPotion = 0;
-        foreach(var potion in prefabPotions)
+        foreach (var potion in prefabPotions)
             potion.GetComponent<PotionScript>().potion.Quantity = 0;
     }
 
@@ -77,5 +77,21 @@ public class GameManager : MonoBehaviour
     public void ChangePotion(int _selectedPotion)
     {
         selectedPotion = _selectedPotion % prefabPotions.Length;
+    }
+
+    public void ReverseAllGravity()
+    {
+        Physics.gravity = new Vector3(0, Physics.gravity.y > 1f ? -9.8f : 9.8f, 0);
+    }
+    public IEnumerator InvokingSpell()
+    {
+        ReverseAllGravity();
+        yield return new WaitForSeconds(5f);
+        ReverseAllGravity();
+    }
+
+    public void StartSpell()
+    {
+        StartCoroutine(InvokingSpell());
     }
 }
