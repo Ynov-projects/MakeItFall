@@ -38,6 +38,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M)) AddPotion(2);
     }
 
+    private void AddPotion(int potion)
+    {
+        prefabPotions[potion].GetComponent<PotionScript>().potion.Quantity++;
+        UIManager.Instance.DisplayPotions();
+    }
+
     public void AppearInfo(int id, string title, string desc)
     {
         if (!prefabPotions[id].GetComponent<PotionScript>().alreadyCollected)
@@ -66,12 +72,6 @@ public class GameManager : MonoBehaviour
             potion.transform.localPosition = new Vector3(0, 1.5f, .7f);
             potion.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, zForce));
         }
-    }
-
-    private void AddPotion(int potion)
-    {
-        prefabPotions[0].GetComponent<PotionScript>().potion.Quantity++;
-        UIManager.Instance.DisplayPotions();
     }
 
     public void ChangePotion(int _selectedPotion)
