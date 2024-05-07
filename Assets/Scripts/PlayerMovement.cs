@@ -28,9 +28,7 @@ public class PlayerMovement : MonoBehaviour
         // Avancer
         float running = Input.GetKey(KeyCode.LeftShift) && horizontalMovement > .3f ? 1.75f : 1f; // Si on court vers l'avant
         if (Mathf.Abs(horizontalMovement) > 0.3f)
-        {
             tempSpeed = transform.forward * horizontalMovement * _speed * running;
-        }
 
         tempSpeed.y = CurrentSpeed.y;
         _rb.velocity = tempSpeed;
@@ -40,16 +38,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && _numberOfCollidingItems > 0) _rb.AddForce(new Vector3(0, _jumpForce, 0));
 
+        if (Input.GetKeyDown(KeyCode.Space)) Debug.Log(_numberOfCollidingItems);
+
         if (_rb.velocity.y < -1) _rb.AddForce(Physics.gravity * Time.deltaTime * 50);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        _numberOfCollidingItems++;
+        if (other.transform.tag != "Player" && !other.isTrigger)
+            _numberOfCollidingItems++;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _numberOfCollidingItems--;
+        if (other.transform.tag != "Player" && !other.isTrigger) _numberOfCollidingItems--;
     }
 }
