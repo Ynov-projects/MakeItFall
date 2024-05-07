@@ -28,12 +28,12 @@ public class Ennemi_IA : MonoBehaviour
                     Quaternion.LookRotation(PlayerTransform.position - transform.position),
                     _RotationSpeed * Time.deltaTime);
             transform.position += transform.forward * _MoveSpeed * Time.deltaTime;
-            enemyScript.animator.SetFloat("Speed", 1f);
+            //enemyScript.animator.SetFloat("Speed", 1f);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        enemyScript.animator.SetFloat("Speed", 0);
+        //enemyScript.animator.SetFloat("Speed", 0);
     }
 }

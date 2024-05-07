@@ -33,9 +33,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) ThrowPotion();
 
-        if (Input.GetKeyDown(KeyCode.K)) AddPotion(0);
-        if (Input.GetKeyDown(KeyCode.L)) AddPotion(1);
-        if (Input.GetKeyDown(KeyCode.M)) AddPotion(2);
+        if (Input.GetKeyDown(KeyCode.K)) StartSpell();
     }
 
     private void AddPotion(int potion)
