@@ -668,12 +668,12 @@ GameObject:
   - component: {fileID: 2759689252456112006}
   - component: {fileID: 2608502903775315464}
   - component: {fileID: 5333809286372571552}
-  - component: {fileID: 8897790546979618365}
-  - component: {fileID: 5121352067870696553}
-  - component: {fileID: 8508868133118637845}
   - component: {fileID: 7023880117139121130}
   - component: {fileID: 4998225945917654629}
-  - component: {fileID: 3632161631978712214}
+  - component: {fileID: 9123732825492644450}
+  - component: {fileID: -6691217427654823609}
+  - component: {fileID: -1435054770026474490}
+  - component: {fileID: 2934927979965062004}
   m_Layer: 0
   m_Name: LittleGhost_LP (3)
   m_TagString: Enemy
@@ -792,49 +792,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 8.52
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8897790546979618365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6746187230484263695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d96f4c2541b8ba84f9cfb42c8e9bc04d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rb: {fileID: 2759689252456112006}
-  animator: {fileID: 4201354132929051423}
-  particleSystem: {fileID: 4998225945917654629}
---- !u!114 &5121352067870696553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6746187230484263695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2ad66742f972084d9cfb92eced56c00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
---- !u!114 &8508868133118637845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6746187230484263695}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d458454a2a95e2a488cdbd9e612d2924, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _RotationSpeed: 3
-  _MoveSpeed: 3
-  enemyScript: {fileID: 8897790546979618365}
 --- !u!199 &7023880117139121130
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5884,7 +5841,50 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &3632161631978712214
+--- !u!114 &9123732825492644450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746187230484263695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ad66742f972084d9cfb92eced56c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+--- !u!114 &-6691217427654823609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746187230484263695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96f4c2541b8ba84f9cfb42c8e9bc04d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rb: {fileID: 2759689252456112006}
+  animator: {fileID: 4201354132929051423}
+  particleSystem: {fileID: 4998225945917654629}
+--- !u!114 &-1435054770026474490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746187230484263695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d458454a2a95e2a488cdbd9e612d2924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _RotationSpeed: 3
+  _MoveSpeed: 3
+  enemyScript: {fileID: -6691217427654823609}
+--- !u!114 &2934927979965062004
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5896,7 +5896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36b9e0d96e1ae34bb3f99811924a27a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upForce: 10000
+  _upForce: 9
   _rb: {fileID: 2759689252456112006}
   _spellDuration: 5
 --- !u!1 &6893457016083797573

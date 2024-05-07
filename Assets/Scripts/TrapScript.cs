@@ -16,6 +16,8 @@ public class TrapScript : MonoBehaviour
         else if (collision.gameObject.tag == "Enemy")
         {
             Debug.Log("collision");
+            collision.gameObject.GetComponent<EnemyScript>().TakeDamage();
+            //GetComponent<EnemyScript>().TakeDamage();
         }
     }
 
