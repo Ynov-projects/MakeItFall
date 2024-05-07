@@ -1833,7 +1833,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Move: \nQD"
+  m_Text: "Move: \nQ/D"
 --- !u!1 &6247270349263961419
 GameObject:
   m_ObjectHideFlags: 0

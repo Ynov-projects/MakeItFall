@@ -106,6 +106,7 @@ public class UIManager : MonoBehaviour
 
     public void RestartGame()
     {
+        Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
