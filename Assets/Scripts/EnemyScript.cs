@@ -16,7 +16,7 @@ public class EnemyScript : MonoBehaviour
     public void TakeDamage()
     {
         _rb.velocity = Vector3.zero;
-        //animator.SetTrigger("Death");
+        animator.SetTrigger("Death");
         particleSystem.Play();
         StartCoroutine(Death());
     }
