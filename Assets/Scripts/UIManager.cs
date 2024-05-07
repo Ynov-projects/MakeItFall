@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
@@ -13,6 +14,9 @@ public class UIManager : MonoBehaviour
     private float timer;
     [SerializeField] private float timePnlDisappearance;
     [SerializeField] private Animator animator;
+
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject commandsMenu;
 
     public static UIManager Instance;
 
@@ -29,7 +33,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if(timer > 0f)
+        if (timer > 0f)
         {
             animator.SetBool("opening", true);
             timer += Time.deltaTime;
@@ -42,6 +46,9 @@ public class UIManager : MonoBehaviour
 
         // Gestion des potions visuelles et physiques
         if (Mathf.Abs(Input.mouseScrollDelta.y) >= .3f) ChangePotion(Input.mouseScrollDelta.y > .3f);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
     }
 
     public void DisplayPotions()
@@ -74,4 +81,38 @@ public class UIManager : MonoBehaviour
 
         DisplayPotions();
     }
+
+    #region "Interactable"
+    private void PauseGame()
+    {
+        Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+        LaunchMenuPause();
+    }
+
+    public void LaunchMenuPause()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+    }
+
+    public void CommandsMenu()
+    {
+        commandsMenu.SetActive(!commandsMenu.activeSelf);
+    }
+
+    public void ResumeGame()
+    {
+        PauseGame();
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    #endregion
 }

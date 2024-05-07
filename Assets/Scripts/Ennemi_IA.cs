@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class Ennemi_IA : MonoBehaviour
 {
-    Transform PlayerTransform;
-    private Vector3 _startPosition;
+    private Transform PlayerTransform;
     [SerializeField] float _RotationSpeed = 3.0f, _MoveSpeed = 3.0f;
-    [SerializeField] private Animator animator;
-    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private EnemyScript enemyScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        _startPosition = transform.position;
+        PlayerTransform = PlayerMovement.Instance.transform;
     }
 
     private void Update()
     {
-        if (_rb.velocity.y < 150)
-            _rb.AddForce(Physics.gravity * Time.deltaTime * 100);
+        if (enemyScript._rb.velocity.y < 150)
+            enemyScript._rb.AddForce(Physics.gravity * Time.deltaTime * 100);
     }
 
     private void OnTriggerStay(Collider other)
@@ -31,12 +28,12 @@ public class Ennemi_IA : MonoBehaviour
                     Quaternion.LookRotation(PlayerTransform.position - transform.position),
                     _RotationSpeed * Time.deltaTime);
             transform.position += transform.forward * _MoveSpeed * Time.deltaTime;
-            animator.SetFloat("Speed", 1f);
+            enemyScript.animator.SetFloat("Speed", 1f);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        animator.SetFloat("Speed", 0);
+        enemyScript.animator.SetFloat("Speed", 0);
     }
 }
