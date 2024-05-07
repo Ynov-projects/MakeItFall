@@ -130,7 +130,12 @@ PrefabInstance:
     - target: {fileID: 1696834749189059949, guid: 4a46e821c58b5cd42b14eaab6d197266,
         type: 3}
       propertyPath: m_Name
-      value: mini simple skeleton demo Variant
+      value: Skeleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696834749189059949, guid: 4a46e821c58b5cd42b14eaab6d197266,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 2468889828458600031, guid: 4a46e821c58b5cd42b14eaab6d197266,
         type: 3}
@@ -250,6 +255,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _RotationSpeed: 3
   _MoveSpeed: 3
+  animator: {fileID: 0}
+  _rb: {fileID: 0}
 --- !u!135 &6764238256356970412
 SphereCollider:
   m_ObjectHideFlags: 0
