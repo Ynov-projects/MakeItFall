@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
         potions = GameObject.FindGameObjectsWithTag("Potion");
         potionsPosition = new List<Vector3>();
-        for (int i = 0; i < potions.Length - 1; i++)
+        for (int i = 0; i < potions.Length; i++)
         {
             potionsPosition.Add(potions[i].transform.position);
         }
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
         ResetPotions();
         PlayerHealth.Instance.ResetLife();
 
-        for (int i = 0; i < potions.Length - 1; i++)
+        for (int i = 0; i < potions.Length; i++)
             if (potions[i].transform.position.z >= spawnPosition.z && !potions[i].activeSelf)
             {
                 potions[i].SetActive(true);
