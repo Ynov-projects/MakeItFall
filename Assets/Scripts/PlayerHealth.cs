@@ -44,8 +44,20 @@ public class PlayerHealth : MonoBehaviour
             fillSize.localScale = CurrentScale;
             fill.color = gradient.Evaluate(CurrentScale.x);
 
-            UnableToMove();
+            if (health > 0)
+                UnableToMove();
+            else
+                GameManager.Instance.Respawn();
         }
+    }
+
+    public void ResetLife()
+    {
+        health = maxHealth;
+        Vector3 CurrentScale = fillSize.localScale;
+        CurrentScale.x = 1;
+        fillSize.localScale = CurrentScale;
+        fill.color = gradient.Evaluate(1);
     }
 
     private void UnableToMove()
