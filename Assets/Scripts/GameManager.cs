@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text pnlDesc;
 
     [SerializeField] private float zForce;
+
+    private Vector3 spawnPosition;
+    [SerializeField] private Transform player;
+    private GameObject[] potions;
+    private List<Vector3> potionsPosition;
 
     public int selectedPotion { get; private set; }
 
@@ -25,13 +31,21 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         selectedPotion = 0;
-        foreach (var potion in prefabPotions)
-            potion.GetComponent<PotionScript>().potion.Quantity = 0;
+        spawnPosition = player.position;
+        ResetPotions();
+
+        potions = GameObject.FindGameObjectsWithTag("Potion");
+        potionsPosition = new List<Vector3>();
+        for (int i = 0; i < potions.Length; i++)
+        {
+            potionsPosition.Add(potions[i].transform.position);
+        }
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) ThrowPotion();
+        if (Input.GetKeyDown(KeyCode.C)) Respawn();
 
         if (Input.GetKeyDown(KeyCode.K)) StartSpell();
     }
@@ -92,5 +106,30 @@ public class GameManager : MonoBehaviour
     public void StartSpell()
     {
         StartCoroutine(InvokingSpell());
+    }
+
+    public void ChangeCheckpoint(Vector3 position)
+    {
+        spawnPosition = position;
+    }
+
+    private void ResetPotions()
+    {
+        foreach (var potion in prefabPotions)
+            potion.GetComponent<PotionScript>().potion.Quantity = 0;
+    }
+
+    public void Respawn()
+    {
+        player.position = spawnPosition;
+        ResetPotions();
+        PlayerHealth.Instance.ResetLife();
+
+        for (int i = 0; i < potions.Length; i++)
+            if (potions[i].transform.position.z >= spawnPosition.z && !potions[i].activeSelf)
+            {
+                potions[i].SetActive(true);
+                potions[i].transform.position = potionsPosition[i];
+            }
     }
 }

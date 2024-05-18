@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
     public Rigidbody _rb;
     public Animator animator;
-    public ParticleSystem particleSystem;
+    public new ParticleSystem particleSystem;
 
     private void Update()
     {
