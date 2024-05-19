@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Gradient gradient;
     [SerializeField] private GameObject dizzy;
 
+    private float timer;
     private bool canTakeDamage = true;
 
     private void Start()
@@ -62,11 +63,24 @@ public class PlayerHealth : MonoBehaviour
 
     private void UnableToMove()
     {
+        StartCoroutine(ArriereSarrasin(GetComponent<Transform>().position));
+
         PlayerScript.Instance.GetAnimator().SetTrigger("TakingDamage");
         PlayerMovement.Instance.enabled = false;
         dizzy.SetActive(true);
         canTakeDamage = false;
         StartCoroutine(AbleToMove());
+    }
+
+    private IEnumerator ArriereSarrasin(Vector3 start)
+    {
+        while (timer < 1.5f)
+        {
+            timer += Time.deltaTime;
+            GetComponent<Transform>().position = Vector3.Lerp(start, new Vector3(start.x, start.y, start.z - 2), timer);
+            yield return null;
+        }
+        timer = 0;
     }
 
     private IEnumerator AbleToMove()
