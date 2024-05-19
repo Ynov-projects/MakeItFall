@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Gradient gradient;
     [SerializeField] private GameObject dizzy;
 
+    private float timer;
     private bool canTakeDamage = true;
 
     private void Start()
@@ -44,17 +45,42 @@ public class PlayerHealth : MonoBehaviour
             fillSize.localScale = CurrentScale;
             fill.color = gradient.Evaluate(CurrentScale.x);
 
-            UnableToMove();
+            if (health > 0)
+                UnableToMove();
+            else
+                GameManager.Instance.Respawn();
         }
+    }
+
+    public void ResetLife()
+    {
+        health = maxHealth;
+        Vector3 CurrentScale = fillSize.localScale;
+        CurrentScale.x = 1;
+        fillSize.localScale = CurrentScale;
+        fill.color = gradient.Evaluate(1);
     }
 
     private void UnableToMove()
     {
+        StartCoroutine(ArriereSarrasin(GetComponent<Transform>().position));
+
         PlayerScript.Instance.GetAnimator().SetTrigger("TakingDamage");
         PlayerMovement.Instance.enabled = false;
         dizzy.SetActive(true);
         canTakeDamage = false;
         StartCoroutine(AbleToMove());
+    }
+
+    private IEnumerator ArriereSarrasin(Vector3 start)
+    {
+        while (timer < 1.5f)
+        {
+            timer += Time.deltaTime;
+            GetComponent<Transform>().position = Vector3.Lerp(start, new Vector3(start.x, start.y, start.z - 2), timer);
+            yield return null;
+        }
+        timer = 0;
     }
 
     private IEnumerator AbleToMove()
