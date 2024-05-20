@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,9 +46,10 @@ public class UIManager : MonoBehaviour
         }
 
         // Gestion des potions visuelles et physiques
-        if (Mathf.Abs(Input.mouseScrollDelta.y) >= .3f) ChangePotion(Input.mouseScrollDelta.y > .3f);
+        float value = GameManager.input.Gameplay.SwitchPotions.ReadValue<Vector2>().y;
+        if (Mathf.Abs(value) >= .7f) ChangePotion(value > 0f);
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (GameManager.input.Gameplay.Pause.triggered)
             PauseGame();
     }
 
@@ -69,17 +71,19 @@ public class UIManager : MonoBehaviour
         potionDisplay.text = prefabPotion[selectedPotion].GetComponent<PotionScript>().potion.Name;
     }
 
-    public void ChangePotion(bool sens)
+    private void ChangePotion(bool sens)
     {
-        timer += Time.deltaTime;
+        if (timer == 0 || timer > .5f)
+        {
+            timer = Time.deltaTime;
 
-        int _selectedPotion = GameManager.Instance.selectedPotion;
-        _selectedPotion += sens ? 1 : -1; // Suivante ou précédente
-        if (_selectedPotion < 0) _selectedPotion = 2; // Si valeur inférieure à 0, on remet à la dernière valeur
+            int _selectedPotion = GameManager.Instance.selectedPotion;
+            _selectedPotion += sens ? 1 : -1; // Suivante ou précédente
+            if (_selectedPotion < 0) _selectedPotion = 2; // Si valeur inférieure à 0, on remet à la dernière valeur
 
-        GameManager.Instance.ChangePotion(_selectedPotion);
-
-        DisplayPotions();
+            GameManager.Instance.ChangePotion(_selectedPotion);
+            DisplayPotions();
+        }
     }
 
     #region "Interactable"

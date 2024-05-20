@@ -7,11 +7,6 @@ public class EnemyScript : MonoBehaviour
     public Animator animator;
     public new ParticleSystem particleSystem;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P)) TakeDamage();
-    }
-
     public void TakeDamage()
     {
         _rb.velocity = Vector3.zero;
