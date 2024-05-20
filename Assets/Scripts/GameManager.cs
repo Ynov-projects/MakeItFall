@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
 
     public void ReverseAllGravity()
     {
+        CameraFollow.instance.changeGravity();
         Physics.gravity = new Vector3(0, Physics.gravity.y > 1f ? -9.8f : 9.8f, 0);
         PlayerMovement.Instance.rotatePlayer();
     }
