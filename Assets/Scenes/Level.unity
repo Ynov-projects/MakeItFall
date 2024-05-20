@@ -33936,7 +33936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36b9e0d96e1ae34bb3f99811924a27a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upForce: 9
+  _upForce: 15
   _rb: {fileID: 1899573484}
   _spellDuration: 5
 --- !u!65 &1899573483
