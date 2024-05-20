@@ -11,6 +11,7 @@ public class EndGame : MonoBehaviour
         {
             endGamePanel.SetActive(true);
             EventSystem.current.SetSelectedGameObject(endGamePanel.transform.GetChild(0).gameObject);
+            Time.timeScale = 0f;
             PlayerMovement.Instance.enabled = false;
         }
     }
