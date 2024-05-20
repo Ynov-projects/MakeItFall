@@ -151,6 +151,17 @@ public partial class @Player: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""0a80ae41-7375-4f7e-942a-f46225060895"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""25847e42-53c1-4be7-845d-3de17d31de0b"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",

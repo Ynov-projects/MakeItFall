@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EndGame : MonoBehaviour
 {
@@ -6,6 +7,11 @@ public class EndGame : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        endGamePanel.SetActive(true);
+        if (other.transform.tag == "Player")
+        {
+            endGamePanel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(endGamePanel.transform.GetChild(0).gameObject);
+            PlayerMovement.Instance.enabled = false;
+        }
     }
 }
