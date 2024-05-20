@@ -1,10 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class LauchingManager : MonoBehaviour
 {
     [SerializeField] private float waitingTime;
+    [SerializeField] private GameObject playButton;
+
+    private void Start()
+    {
+        EventSystem.current.SetSelectedGameObject(playButton);
+    }
 
     public void PlayButton()
     {

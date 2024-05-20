@@ -1904,7 +1904,7 @@ PrefabInstance:
     - target: {fileID: 2331804336752443084, guid: 94d8375c61de0fc44895bf67f8be5dc6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 125.3
+      value: -15.06
       objectReference: {fileID: 0}
     - target: {fileID: 2331804336752443084, guid: 94d8375c61de0fc44895bf67f8be5dc6,
         type: 3}
@@ -17260,6 +17260,7 @@ MonoBehaviour:
   player: {fileID: 2073079411}
   timeOffset: 0.2
   posOffset: {x: 8, y: 3, z: 0}
+  posOffsetReversed: {x: 0, y: 0, z: 0}
 --- !u!4 &1379023419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 510248444000824863, guid: 9d3c6113164fd3b488040a35893b058c,
