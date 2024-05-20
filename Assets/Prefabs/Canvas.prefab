@@ -144,7 +144,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4bf52c3c47d83894893a7d63c1b6a8c3, type: 3}
-    m_FontSize: 40
+    m_FontSize: 36
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -155,9 +155,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Jump:
+  m_Text: 'Change Potion:
 
-    Space'
+    Scroll | Right Stick'
 --- !u!1 &1137076076837216941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,7 +1755,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4bf52c3c47d83894893a7d63c1b6a8c3, type: 3}
-    m_FontSize: 40
+    m_FontSize: 36
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -1766,9 +1766,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Menu:
+  m_Text: 'Respawn:
 
-    Escape'
+    C | Triangle/Y'
 --- !u!1 &5165548311482111420
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,7 +2048,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4bf52c3c47d83894893a7d63c1b6a8c3, type: 3}
-    m_FontSize: 40
+    m_FontSize: 36
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -2059,7 +2059,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Move: \nQ/D"
+  m_Text: "Move: \nQ/D | Left Stick"
 --- !u!1 &6065432578633686574
 GameObject:
   m_ObjectHideFlags: 0
@@ -2206,7 +2206,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 4bf52c3c47d83894893a7d63c1b6a8c3, type: 3}
-    m_FontSize: 40
+    m_FontSize: 36
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -2219,7 +2219,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Launch Potion:
 
-    Left Click'
+    Left Click | R2/RT'
 --- !u!1 &6348673973205546535
 GameObject:
   m_ObjectHideFlags: 0
