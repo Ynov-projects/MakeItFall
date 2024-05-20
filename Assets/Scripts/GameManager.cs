@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -15,8 +16,10 @@ public class GameManager : MonoBehaviour
 
     private Vector3 spawnPosition;
     [SerializeField] private Transform player;
-    private GameObject[] potions;
-    private List<Vector3> potionsPosition;
+    private Dictionary<GameObject, Vector3> potions;
+    private Dictionary<GameObject, Vector3> reversables;
+
+    public static Player input;
 
     public int selectedPotion { get; private set; }
 
@@ -26,6 +29,9 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null) Destroy(Instance);
         Instance = this;
+
+        input = new Player();
+        input.Gameplay.Enable();
     }
 
     private void Start()
@@ -34,26 +40,21 @@ public class GameManager : MonoBehaviour
         spawnPosition = player.position;
         ResetPotions();
 
-        potions = GameObject.FindGameObjectsWithTag("Potion");
-        potionsPosition = new List<Vector3>();
-        for (int i = 0; i < potions.Length; i++)
-        {
-            potionsPosition.Add(potions[i].transform.position);
-        }
+        potions = new Dictionary<GameObject, Vector3>();
+        GameObject[] allPotions = GameObject.FindGameObjectsWithTag("Potion");
+        foreach (GameObject o in allPotions)
+            potions.Add(o, o.transform.position);
+
+        reversables = new Dictionary<GameObject, Vector3>();
+        GameObject[] everyReversables = GameObject.FindGameObjectsWithTag("Reversable");
+        foreach (GameObject o in everyReversables)
+            reversables.Add(o, o.transform.position);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) ThrowPotion();
-        if (Input.GetKeyDown(KeyCode.C)) Respawn();
-
-        if (Input.GetKeyDown(KeyCode.K)) StartSpell();
-    }
-
-    private void AddPotion(int potion)
-    {
-        prefabPotions[potion].GetComponent<PotionScript>().potion.Quantity++;
-        UIManager.Instance.DisplayPotions();
+        if (input.Gameplay.LaunchPotion.triggered) ThrowPotion();
+        if (input.Gameplay.Respawn.triggered) Respawn();
     }
 
     public void AppearInfo(int id, string title, string desc)
@@ -125,11 +126,15 @@ public class GameManager : MonoBehaviour
         ResetPotions();
         PlayerHealth.Instance.ResetLife();
 
-        for (int i = 0; i < potions.Length; i++)
-            if (potions[i].transform.position.z >= spawnPosition.z && !potions[i].activeSelf)
+
+        foreach (KeyValuePair<GameObject, Vector3> potion in potions)
+            if (potion.Key.transform.position.z >= spawnPosition.z && !potion.Key.activeSelf)
             {
-                potions[i].SetActive(true);
-                potions[i].transform.position = potionsPosition[i];
+                potion.Key.SetActive(true);
+                potion.Key.transform.position = potion.Value;
             }
+
+        foreach (KeyValuePair<GameObject, Vector3> reversable in reversables)
+            reversable.Key.transform.position = reversable.Value;
     }
 }
