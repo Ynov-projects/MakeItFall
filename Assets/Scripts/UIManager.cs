@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -96,11 +97,16 @@ public class UIManager : MonoBehaviour
     public void LaunchMenuPause()
     {
         pauseMenu.SetActive(!pauseMenu.activeSelf);
+        if(pauseMenu.activeSelf) EventSystem.current.SetSelectedGameObject(pauseMenu.transform.GetChild(0).gameObject);
+        PlayerMovement.Instance.enabled = !pauseMenu.activeSelf;
     }
 
     public void CommandsMenu()
     {
+        LaunchMenuPause();
         commandsMenu.SetActive(!commandsMenu.activeSelf);
+        if (commandsMenu.activeSelf) EventSystem.current.SetSelectedGameObject(commandsMenu.transform.GetChild(0).gameObject);
+        PlayerMovement.Instance.enabled = !commandsMenu.activeSelf;
     }
 
     public void ResumeGame()
