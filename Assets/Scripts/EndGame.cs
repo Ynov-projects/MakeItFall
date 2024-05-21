@@ -10,7 +10,7 @@ public class EndGame : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             endGamePanel.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(endGamePanel.transform.GetChild(0).gameObject);
+            if(GameManager.lastDevice.name != "Keyboard") EventSystem.current.SetSelectedGameObject(endGamePanel.transform.GetChild(0).gameObject);
             Time.timeScale = 0f;
             PlayerMovement.Instance.enabled = false;
         }

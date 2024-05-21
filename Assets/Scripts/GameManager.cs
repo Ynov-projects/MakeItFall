@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform player;
     private Dictionary<GameObject, Vector3> potions;
     private Dictionary<GameObject, Vector3> reversables;
+    private Dictionary<GameObject, Vector3> enemies;
 
     public static Player input;
+    public static InputDevice lastDevice;
 
     public int selectedPotion { get; private set; }
 
@@ -40,6 +42,9 @@ public class GameManager : MonoBehaviour
         spawnPosition = player.position;
         ResetPotions();
 
+        input.Gameplay.Get().actionTriggered +=
+            ctx => ChangeDevice(ctx);
+
         potions = new Dictionary<GameObject, Vector3>();
         GameObject[] allPotions = GameObject.FindGameObjectsWithTag("Potion");
         foreach (GameObject o in allPotions)
@@ -49,6 +54,16 @@ public class GameManager : MonoBehaviour
         GameObject[] everyReversables = GameObject.FindGameObjectsWithTag("Reversable");
         foreach (GameObject o in everyReversables)
             reversables.Add(o, o.transform.position);
+
+        enemies = new Dictionary<GameObject, Vector3>();
+        GameObject[] everyEnemy = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject o in everyEnemy)
+            enemies.Add(o, o.transform.position);
+    }
+
+    private void ChangeDevice(InputAction.CallbackContext ctx)
+    {
+        lastDevice = ctx.control?.device;
     }
 
     private void Update()
@@ -137,5 +152,8 @@ public class GameManager : MonoBehaviour
 
         foreach (KeyValuePair<GameObject, Vector3> reversable in reversables)
             reversable.Key.transform.position = reversable.Value;
+
+        foreach (KeyValuePair<GameObject, Vector3> enemy in enemies)
+            enemy.Key.transform.position = enemy.Value;
     }
 }
