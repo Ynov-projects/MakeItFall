@@ -39,6 +39,7 @@ public class PotionScript : MonoBehaviour
         {
             potion.Quantity++;
             GameManager.Instance.AppearInfo(potion.Id, potion.Name, potion.Description);
+            UIManager.Instance.DisplayPotions();
             gameObject.SetActive(false);
         }
     }

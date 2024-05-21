@@ -10,7 +10,7 @@ public class LauchingManager : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.current.SetSelectedGameObject(playButton);
+        if(GameManager.lastDevice.name != "Keyboard") EventSystem.current.SetSelectedGameObject(playButton);
     }
 
     public void PlayButton()

@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
     public void LaunchMenuPause()
     {
         pauseMenu.SetActive(!pauseMenu.activeSelf);
-        if(pauseMenu.activeSelf) EventSystem.current.SetSelectedGameObject(pauseMenu.transform.GetChild(0).gameObject);
+        if(pauseMenu.activeSelf && GameManager.lastDevice.name != "Keyboard") EventSystem.current.SetSelectedGameObject(pauseMenu.transform.GetChild(0).gameObject);
         PlayerMovement.Instance.enabled = !pauseMenu.activeSelf;
     }
 
@@ -102,7 +102,7 @@ public class UIManager : MonoBehaviour
     {
         LaunchMenuPause();
         commandsMenu.SetActive(!commandsMenu.activeSelf);
-        if (commandsMenu.activeSelf) EventSystem.current.SetSelectedGameObject(commandsMenu.transform.GetChild(0).gameObject);
+        if (commandsMenu.activeSelf && GameManager.lastDevice.name != "Keyboard") EventSystem.current.SetSelectedGameObject(commandsMenu.transform.GetChild(0).gameObject);
         PlayerMovement.Instance.enabled = !commandsMenu.activeSelf;
     }
 
@@ -120,7 +120,7 @@ public class UIManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene("Launching");
     }
     #endregion
 }
